@@ -8,6 +8,12 @@ updates:
       prefix: 'npm'
     assignees:
       - 'y-hsgw'
+    groups:
+      react-stack:
+        patterns:
+          - react
+          - react-dom
+          - '@types/react'
 
   - package-ecosystem: 'docker'
     directory: '/'
