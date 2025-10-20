@@ -23,7 +23,7 @@ updates:
       prefix: 'docker'
     ignore:
       - dependency-name: '*'
-      - update-types:
+        update-types:
           - version-update:semver-major
 
   - package-ecosystem: 'github-actions'
