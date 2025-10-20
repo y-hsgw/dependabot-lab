@@ -21,6 +21,10 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: 'docker'
+    ignore:
+      - dependency-name: '*'
+      - update-types:
+          - version-update:semver-major
 
   - package-ecosystem: 'github-actions'
     directory: '/'
