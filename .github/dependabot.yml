@@ -1,13 +1,21 @@
 version: 2
 updates:
   - package-ecosystem: 'npm'
+    # 各パッケージ マネージャー (package.json や Gemfile など) のパッケージ マニフェストの場所を定義する
     directory: '/'
+    # 構成する各パッケージ マネージャーの新しいバージョンをチェックする頻度
     schedule:
+      # 月曜日から金曜日までの平日に実行する
       interval: 'daily'
+    # コミット メッセージの形式を定義する
     commit-message:
+      # エコシステムがnpmの場合、接頭辞は "npm" になる
       prefix: 'npm'
+    # パッケージ エコシステムに対して生成されたすべての PR に個別の担当者を指定する
     assignees:
       - 'y-hsgw'
+    # パッケージ マネージャーによって管理される 1 つ以上の依存関係のセットを作成し、
+    # 更新プログラムを少数の対象を絞った PR にグループ化するようにルールを定義する
     groups:
       react-stack:
         patterns:
@@ -21,7 +29,9 @@ updates:
       interval: 'weekly'
     commit-message:
       prefix: 'docker'
+    # 特定の依存関係を無視する
     ignore:
+      # 下記の場合メジャーバージョンの更新は無視する
       - dependency-name: '*'
         update-types:
           - version-update:semver-major
