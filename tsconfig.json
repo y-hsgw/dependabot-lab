@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "target": "es2024",
+    "target": "es2022",
     "module": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true
