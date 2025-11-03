@@ -16,6 +16,7 @@
   "type": "module",
   "scripts": {
     "tsc": "tsc",
+    "type:check": "tsc --noEmit",
     "start": "node ./src/index.ts"
   },
   "devDependencies": {
