@@ -5,8 +5,9 @@ updates:
     directory: '/'
     # 構成する各パッケージ マネージャーの新しいバージョンをチェックする頻度
     schedule:
-      # 月曜日から金曜日までの平日に実行する
-      interval: 'daily'
+      # 毎日午前9時に実行する（UTCなので+9時間される）
+      interval: 'cron'
+      cronjob: '0 0 * * *'
     # コミット メッセージの形式を定義する
     commit-message:
       # エコシステムがnpmの場合、接頭辞は "npm" になる
