@@ -2,23 +2,32 @@ name: Dependabot auto-merge
 on: pull_request
 
 permissions:
+  # リポジトリ内容の更新を許可（マージ実行に必要）
   contents: write
+  # PR操作（マージ等）を許可
   pull-requests: write
 
 jobs:
   dependabot:
     runs-on: ubuntu-latest
+    # Dependabot発の指定リポジトリPRのみ処理
     if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'y-hsgw/dependabot-lab'
     steps:
       - name: Dependabot metadata
         id: metadata
+        # PRの更新種別などDependabotメタデータ取得するアクション
         uses: dependabot/fetch-metadata@d7267f607e9d3fb96fc2fbe83e0af444713e90b7
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Enable auto-merge for Dependabot PRs
+        # 条件に合うDependabot PRのみ自動マージ
+        # react-stackグループ or dockerのnodeイメージのみで マイナー / パッチバージョンのみを更新する
         if: >
-          steps.metadata.outputs.update-type == 'version-update:semver-minor' &&
+          (
+            steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
+            steps.metadata.outputs.update-type == 'version-update:semver-patch'
+          )  &&
           (
             steps.metadata.outputs.dependency-group == 'react-stack' ||
             (
@@ -26,7 +35,10 @@ jobs:
               steps.metadata.outputs.package-ecosystem == 'docker'
             )
           )
+        # GitHub CLIでマージを自動設定
         run: gh pr merge --auto --merge "$PR_URL"
         env:
+          # 対象PRのURL
           PR_URL: ${{github.event.pull_request.html_url}}
+          # CLI用の認証トークン
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
